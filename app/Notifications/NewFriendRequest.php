@@ -59,7 +59,7 @@ class NewFriendRequest extends Notification implements ShouldQueue
     {
         return [
             'name' => $this->user->firstname.' '.$this->user->lastname,
-            'message' => ' has just sent you a friend request to you.'
+            'message' => ' has just sent a friend request to you.'
         ];
     }
 }

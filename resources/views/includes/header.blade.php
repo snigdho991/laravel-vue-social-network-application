@@ -1,4 +1,6 @@
-    <header id="header">
+
+
+<header id="header">
       <nav class="navbar navbar-default navbar-fixed-top menu">
         <div class="container">
 
@@ -16,7 +18,7 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
-              <li class="dropdown">
+              <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span><img src="{{ asset('app/images/down-arrow.png') }}" alt="" /></span></a>
                   <ul class="dropdown-menu newsfeed-home">
                     <li><a href="index-2.html">Landing Page 1</a></li>
@@ -33,7 +35,7 @@
                     <li><a href="newsfeed-images.html">Images</a></li>
                     <li><a href="newsfeed-videos.html">Videos</a></li>
                   </ul>
-              </li>
+              </li> -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline <span><img src="{{ asset('app/images/down-arrow.png') }}" alt="" /></span></a>
                 <ul class="dropdown-menu login">
@@ -52,7 +54,7 @@
                   <li><a href="edit-profile-password.html">Change Password</a></li>
                 </ul>
               </li>
-              <li class="dropdown">
+              <!-- <li class="dropdown">
                 <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="{{ asset('app/images/down-arrow.png') }}" alt="" /></span></a>
                 <ul class="dropdown-menu page-list">
                   <li><a href="index-2.html">Landing Page 1</a></li>
@@ -72,7 +74,17 @@
                   <li><a href="faq.html">FAQ Page</a></li>
                   <li><a href="404.html">404 Not Found</a></li>
                 </ul>
-              </li>
+              </li> -->
+          @if(Auth::check())
+
+          <notification :id="{{ Auth::id() }}" :unreads="{{ auth()->user()->unreadNotifications }}"></notification>
+            <audio id="noty_audio">
+                <source src="{{ asset('audio/notify.mp3') }}">
+                <source src="{{ asset('audio/notify.oog') }}">
+                <source src="{{ asset('audio/notify.wav') }}">
+            </audio>                 
+          
+          @endif 
               <li class="dropdown"><a href="contact.html">Contact</a></li>
               <li class="dropdown"><a href="{{ url('/logout') }}">Logout ({{Auth::user()->firstname}})</a></li>
             </ul>

@@ -47,4 +47,14 @@ class FriendshipsController extends Controller
     {
         return Auth::user()->decline_request($id);
     }
+
+    public function unread_notification()
+    {
+        return Auth::user()->unreadNotifications;
+    }
+
+    public function mark_notification_as_read()
+    {
+        return Auth::user()->unreadNotifications->markAsRead();
+    }
 }

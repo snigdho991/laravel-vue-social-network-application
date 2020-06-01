@@ -97,4 +97,11 @@ class ProfilesController extends Controller
         Session::flash('success', 'Background profile updated successfully !');
         return redirect()->route('timeline.background', ['slug' => str_slug(Auth::user()->firstname .'-'. Auth::user()->lastname) ]);
     }
+
+    public function notifications()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        return view('profiles.notifications')->with('nots', Auth::user()->notifications()->paginate(5));
+    }
+
 }

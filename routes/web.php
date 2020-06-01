@@ -57,6 +57,16 @@ Route::group(['middleware' => 'auth'], function(){
 	    return view('newsfeed');
 	});
 
+	Route::get('/notifications', [
+		'uses' => 'ProfilesController@notifications',
+		'as'   => 'notifications'
+	]);
+
+	/*Route::get('/limit_notifications', [
+		'uses' => 'ProfilesController@limit_notifications',
+		'as'   => 'limit_notifications'
+	]);*/
+
 	Route::get('/check_status/{id}', [
 		'uses' => 'FriendshipsController@check',
 		'as'   => 'check'
@@ -76,5 +86,17 @@ Route::group(['middleware' => 'auth'], function(){
 		'uses' => 'FriendshipsController@decline_request',
 		'as'   => 'decline_request'
 	]);
+
+	Route::get('/get_unread_notification', [
+		'uses' => 'FriendshipsController@unread_notification',
+		'as'   => 'unread_notification'
+	]);
+
+	Route::get('/mark_notification_as_read', [
+		'uses' => 'FriendshipsController@mark_notification_as_read',
+		'as'   => 'mark_notification_as_read'
+	]);
+
+	
 
 });

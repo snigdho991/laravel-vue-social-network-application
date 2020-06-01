@@ -15,9 +15,27 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('friend', require('./components/Friend.vue'));
-Vue.component('notification', require('./components/Notification.vue'));
+/*import Friend from './components/Friend'
+import Notification from './components/Notification'
+import Unreadnotification from './components/Unreadnotification'
+*/
+
+var friend = Vue.component('friend', require('./components/Friend.vue'))
+var notification = Vue.component('notification', require('./components/Notification.vue'))
+/*var unreadnots = Vue.component('unreadnots', require('./components/Unreadnotification.vue'))
+var limited = Vue.component('limited', require('./components/Limitedunnots.vue'))*/
+
+
+import { store } from './store'
 
 const app = new Vue({
-    el: '#app'
+	el: '#app',
+	store,
+	components: {
+	    'friend': friend,
+	    'notification': notification,
+	    /*'unreadnots': unreadnots,
+	    'limited': limited*/
+	}
+
 });

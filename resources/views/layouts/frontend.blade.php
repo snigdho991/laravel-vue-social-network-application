@@ -29,6 +29,8 @@
   
   <body>
 
+  <div id="app">
+
     <!-- Header
     ================================================= -->
 	@include('includes.header')
@@ -36,22 +38,14 @@
 
     @yield('content')
 
-    <div id="app"><notification :id="{{ Auth::id() }}"></notification></div>
-    <audio id="noty_audio">
-        <source src="{{ asset('audio/notify.mp3') }}">
-        <source src="{{ asset('audio/notify.oog') }}">
-        <source src="{{ asset('audio/notify.wav') }}">
-    </audio>
-
     <!-- Footer
     ================================================= -->
     @include('includes.footer')
-    
+  </div>  
     <!--preloader-->
     <div id="spinner-wrapper">
       <div class="spinner"></div>
     </div>
-    
     <!--Buy button-->
     <a href="https://themeforest.net/cart/add_items?item_ids=18711273&amp;ref=thunder-team" target="_blank" class="btn btn-buy"><span class="italy">Buy with:</span><img src="images/envato_logo.png" alt="" /><span class="price">Only $20!</span></a>
     
@@ -232,6 +226,45 @@
             .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
 
         }(jQuery);
+    </script>
+    <script type="text/javascript">
+      function attachSticky() {
+          // Sticky Chat Block
+          $('#chat-block').stick_in_parent({
+              parent: '#page-contents',
+              offset_top: 70
+          });
+
+          // Sticky Right Sidebar
+          $('#sticky-sidebar').stick_in_parent({
+              parent: '#page-contents',
+              offset_top: 70
+          });
+
+      }
+
+      // Disable Sticky Feature in Mobile
+      $(window).on("resize", function() {
+
+          if ($.isFunction($.fn.stick_in_parent)) {
+              // Check if Screen wWdth is Less Than or Equal to 992px, Disable Sticky Feature
+              if ($(this).width() <= 992) {
+                  $('#chat-block').trigger('sticky_kit:detach');
+                  $('#sticky-sidebar').trigger('sticky_kit:detach');
+
+                  return;
+              } else {
+
+                  // Enabling Sticky Feature for Width Greater than 992px
+                  attachSticky();
+              }
+
+              // Firing Sticky Recalculate on Screen Resize
+              return function(e) {
+                  return $(document.body).trigger("sticky_kit:recalc");
+              };
+          }
+      });
     </script>
   </body>
 
