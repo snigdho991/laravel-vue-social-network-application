@@ -100,6 +100,19 @@ class ProfilesController extends Controller
 
     public function notifications()
     {
+        /*$type = 'App\Notifications\NewFriendRequest';
+        $not = auth()->user()->unreadNotifications->where('type', $type);
+        dd($not);*/
+
+        /*$types = [
+        'order' => 'App\Notifications\NewFriendRequest',
+        ];
+        
+        foreach ($types as $key => $type) {
+            $alerts[$key] = auth()->user()->unreadNotifications->where('type', $type);
+            dd($alerts);
+        }*/
+
         Auth::user()->unreadNotifications->markAsRead();
         return view('profiles.notifications')->with('nots', Auth::user()->notifications()->paginate(5));
     }

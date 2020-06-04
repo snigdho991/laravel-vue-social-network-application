@@ -115,7 +115,8 @@ trait Friendable
 		$pending = array();
 		$request = Friendship::where('user_requested', $this->id)
 							 ->where('status', 0)
-							 ->get();
+							 ->get()->sortByDesc('created_at');
+		
 		foreach ($request as $r) {
 			array_push($pending, \App\User::find($r->requester));
 		}
@@ -134,6 +135,7 @@ trait Friendable
 		$request = Friendship::where('requester', $this->id)
 							 ->where('status', 0)
 							 ->get();
+
 		foreach ($request as $r) {
 			array_push($pending, \App\User::find($r->user_requested));
 		}

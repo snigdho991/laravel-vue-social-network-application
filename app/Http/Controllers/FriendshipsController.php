@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+
 use Auth;
 use App\User;
+use App\Friendship;
+
 
 class FriendshipsController extends Controller
 {
@@ -56,5 +60,23 @@ class FriendshipsController extends Controller
     public function mark_notification_as_read()
     {
         return Auth::user()->unreadNotifications->markAsRead();
+    }
+
+    public function pending_friend_requests()
+    {
+        $pending = Auth::user()->pending_friend_requests();
+        
+        $users = Friendship::where('user_requested', Auth::id())->where('status', 0)->get();
+        
+        return view('profiles.pending')->with(['requests' => $pending])
+                                       ->with('users', $users);
+
+    }
+
+    public function unread_requests()
+    {
+        
+        $not = auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest');
+        dd($not);
     }
 }

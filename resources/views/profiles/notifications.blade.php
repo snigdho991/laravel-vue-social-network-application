@@ -19,13 +19,13 @@
 
             <!-- <div class="col-md-3"></div> -->
             <div class="col-md-7">
-              <h4 class="grey">All Notifications</h4>
-        @if($nots->count() > 0)
+              <h4 class="grey">All Notifications ({{ Auth::user()->notifications->count() }})</h4>
+        @if(Auth::user()->notifications->count() > 0)
           @foreach($nots as $not)
           
                 <div class="feed-item">
                   <div class="live-activity">                   
-                    <img src="{{ Storage::url($not->notifiable_type::where('slug', str_slug($not->data['name']))->first()->avatar) }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;" />
+                    <img src="{{ Storage::url($not->notifiable_type::where('slug', str_slug($not->data['name']))->first()->avatar) }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;border: 1px solid #ddd;" />
                     <p><a href="{{ route('timeline', ['slug' => str_slug($not->data['name']) ]) }}" class="profile-link">{{ $not->data['name'] }}</a> {{ $not->data['message'] }}</p>
                     <p class="text-muted">{{ $not->created_at->diffForHumans() }}</p>
                   </div>

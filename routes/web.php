@@ -62,6 +62,11 @@ Route::group(['middleware' => 'auth'], function(){
 		'as'   => 'notifications'
 	]);
 
+	Route::get('/requests', [
+		'uses' => 'FriendshipsController@pending_friend_requests',
+		'as'   => 'pending_friend_requests'
+	]);
+
 	/*Route::get('/limit_notifications', [
 		'uses' => 'ProfilesController@limit_notifications',
 		'as'   => 'limit_notifications'
