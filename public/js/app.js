@@ -51805,6 +51805,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FriendnotsItem_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FriendnotsItem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FriendnotsItem_vue__);
 //
 //
 //
@@ -51883,6 +51885,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -51891,13 +51894,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.listen();
     },
 
-    props: ['id', 'unreads', 'unseen'],
-    components: { NotificationItem: __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue___default.a },
+    props: ['id', 'unreads', 'unseen', 'unreadfri'],
+    components: { NotificationItem: __WEBPACK_IMPORTED_MODULE_0__NotificationItem_vue___default.a, FriendnotsItem: __WEBPACK_IMPORTED_MODULE_1__FriendnotsItem_vue___default.a },
     data: function data() {
         return {
             unreadNots: this.unreads,
-            unreadReqs: this.unseen
-
+            unreadReqs: this.unseen,
+            unreadFri: this.unreadfri
         };
     },
 
@@ -51924,13 +51927,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 if (notification.message === " has just sent a friend request to you.") {
                     var newUnreadRequests = { data: { name: notification.name, message: notification.message } };
-                    _this.unreadReqs.push(Object.assign({}, _this.newUnreadRequests));
+                    //this.unreadReqs.$set(newUnreadRequests);
+                    _this.unreadReqs.push(newUnreadRequests);
+                    _this.unreadFri.push(newUnreadRequests);
                 }
             });
         },
         mark_notification_as_read: function mark_notification_as_read() {
             if (this.unreadNots.length) {
                 axios.get('/mark_notification_as_read');
+            }
+        },
+        mark_request_as_read: function mark_request_as_read() {
+            if (this.unreadReqs.length) {
+                axios.get('/mark_request_as_read');
             }
         }
     }
@@ -52057,61 +52067,96 @@ var render = function() {
   return _c("ul", { staticClass: "nav navbar-nav navbar-right main-menu" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("li", { staticClass: "dropdown" }, [
-      Object.keys(_vm.unreadReqs).length === 0
-        ? _c(
-            "a",
-            {
-              staticClass: "dropdown-toggle",
-              attrs: {
-                href: "#",
-                "data-toggle": "dropdown",
-                role: "button",
-                "aria-haspopup": "true",
-                "aria-expanded": "false"
-              }
-            },
-            [
-              _c("i", {
-                staticClass: "fa fa-users fa-2x",
-                staticStyle: { color: "#fff" }
-              })
-            ]
-          )
-        : _c(
-            "a",
-            {
-              staticClass: "dropdown-toggle",
-              attrs: {
-                href: "#",
-                "data-toggle": "dropdown",
-                role: "button",
-                "aria-haspopup": "true",
-                "aria-expanded": "false"
-              }
-            },
-            [
-              _c("i", {
-                staticClass: "fa fa-users fa-2x",
-                staticStyle: { color: "#fff" }
-              }),
-              _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass: "badge",
-                  staticStyle: {
-                    background: "#fa3e3e",
-                    position: "relative",
-                    top: "-16px",
-                    left: "-11px"
-                  }
-                },
-                [_vm._v(" " + _vm._s(Object.keys(_vm.unreadReqs).length) + " ")]
-              )
-            ]
-          )
-    ]),
+    _c(
+      "li",
+      {
+        staticClass: "dropdown",
+        on: {
+          click: function($event) {
+            return _vm.mark_request_as_read()
+          }
+        }
+      },
+      [
+        _vm.unreadReqs.length === 0
+          ? _c(
+              "a",
+              {
+                staticClass: "dropdown-toggle",
+                attrs: {
+                  href: "#",
+                  "data-toggle": "dropdown",
+                  role: "button",
+                  "aria-haspopup": "true",
+                  "aria-expanded": "false"
+                }
+              },
+              [
+                _c("i", {
+                  staticClass: "fa fa-users fa-2x",
+                  staticStyle: { color: "#fff" }
+                })
+              ]
+            )
+          : _c(
+              "a",
+              {
+                staticClass: "dropdown-toggle",
+                attrs: {
+                  href: "#",
+                  "data-toggle": "dropdown",
+                  role: "button",
+                  "aria-haspopup": "true",
+                  "aria-expanded": "false"
+                }
+              },
+              [
+                _c("i", {
+                  staticClass: "fa fa-users fa-2x",
+                  staticStyle: { color: "#fff" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "badge",
+                    staticStyle: {
+                      background: "#fa3e3e",
+                      position: "relative",
+                      top: "-16px",
+                      left: "-11px"
+                    }
+                  },
+                  [_vm._v(" " + _vm._s(_vm.unreadReqs.length) + " ")]
+                )
+              ]
+            ),
+        _vm._v(" "),
+        _c(
+          "ul",
+          {
+            staticClass: "dropdown-menu",
+            staticStyle: { "min-width": "300px", "margin-right": "27px" }
+          },
+          [
+            _vm.unreadFri.length !== 0
+              ? _c(
+                  "span",
+                  _vm._l(_vm.unreadFri, function(unreadfri) {
+                    return _c("friendnots-item", {
+                      key: unreadfri.id,
+                      attrs: { unreadfri: unreadfri }
+                    })
+                  }),
+                  1
+                )
+              : _c("span", [_vm._m(1)]),
+            _vm._v(" "),
+            _vm._m(2)
+          ]
+        )
+      ]
+    ),
     _vm._v(" "),
     _c(
       "li",
@@ -52196,15 +52241,15 @@ var render = function() {
                   }),
                   1
                 )
-              : _c("span", [_vm._m(1)]),
+              : _c("span", [_vm._m(3)]),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(4)
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _vm._m(3)
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -52283,6 +52328,50 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "li",
+      {
+        staticStyle: {
+          padding: "15px 0px",
+          "border-top": "1px solid rgba(255,255,255, 0.1)",
+          "border-bottom": "0px",
+          background: "#222"
+        }
+      },
+      [
+        _c("span", { staticStyle: { color: "#fff", "margin-left": "17px" } }, [
+          _vm._v("No unread notifications.")
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "li",
+      {
+        staticClass: "text-center",
+        staticStyle: {
+          padding: "15px 0px",
+          "border-top": "1px solid rgba(255,255,255, 0.1)",
+          "border-bottom": "0px"
+        }
+      },
+      [
+        _c(
+          "a",
+          { staticStyle: { color: "#27aae1" }, attrs: { href: "/requests" } },
+          [_vm._v("\n            See all notifications")]
+        )
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -53501,6 +53590,120 @@ var index = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(70)
+/* template */
+var __vue_template__ = __webpack_require__(71)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/FriendnotsItem.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-74c9a148", Component.options)
+  } else {
+    hotAPI.reload("data-v-74c9a148", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+	props: ['unreadfri'],
+
+	mounted: function mounted() {}
+});
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "li",
+    {
+      staticStyle: {
+        padding: "15px 0px",
+        "border-top": "1px solid rgba(255,255,255, 0.1)",
+        "border-bottom": "0px",
+        background: "#222"
+      }
+    },
+    [
+      _c(
+        "a",
+        {
+          staticStyle: { "margin-left": "17px", "text-decoration": "none" },
+          attrs: { href: "/notifications" }
+        },
+        [_vm._v(_vm._s(_vm.unreadfri.data.name))]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-74c9a148", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

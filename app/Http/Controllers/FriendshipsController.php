@@ -64,6 +64,8 @@ class FriendshipsController extends Controller
 
     public function pending_friend_requests()
     {
+        Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest')->markAsRead();
+
         $pending = Auth::user()->pending_friend_requests();
         
         $users = Friendship::where('user_requested', Auth::id())->where('status', 0)->get();
@@ -73,10 +75,8 @@ class FriendshipsController extends Controller
 
     }
 
-    public function unread_requests()
+    public function mark_request_as_read()
     {
-        
-        $not = auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest');
-        dd($not);
+        return Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest')->markAsRead();
     }
 }

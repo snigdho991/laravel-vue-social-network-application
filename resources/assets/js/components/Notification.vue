@@ -18,19 +18,19 @@
         </ul>
       </li>
 
-      <li class="dropdown">
-          <a v-if="Object.keys(unreadReqs).length === 0" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+      <li class="dropdown" @click="mark_request_as_read()" >
+          <a v-if="unreadReqs.length === 0" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-users fa-2x" style="color: #fff"></i>
           </a>
 
           <a v-else href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-users fa-2x" style="color: #fff"></i>
-            <span class="badge" style="background: #fa3e3e; position: relative; top: -16px; left: -11px;"> {{ Object.keys(unreadReqs).length }} </span>
+            <span class="badge" style="background: #fa3e3e; position: relative; top: -16px; left: -11px;"> {{ unreadReqs.length }} </span>
           </a>
 
-        <!-- <ul class="dropdown-menu" style="min-width: 500px; margin-right: 27px;"> 
-            <span v-if="unreadNots.length !== 0">
-                <friend-item v-for="unreads in unreadNots" :unreads="unreads" :key="unreads.id"></friend-item>          
+        <ul class="dropdown-menu" style="min-width: 300px; margin-right: 27px;"> 
+            <span v-if="unreadFri.length !== 0">
+                <friendnots-item v-for="unreadfri in unreadFri" :unreadfri="unreadfri" :key="unreadfri.id"></friendnots-item>      
             </span>
             
             <span v-else>
@@ -41,7 +41,7 @@
             
                   <li class="text-center" style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px;"><a href="/requests" style="color: #27aae1;">
               See all notifications</a></li>
-        </ul> -->
+        </ul>
       </li>
 
       <li class="dropdown" @click="mark_notification_as_read()" >
@@ -78,18 +78,19 @@
 
 <script>
       import NotificationItem from './NotificationItem.vue';
+      import FriendnotsItem from './FriendnotsItem.vue';
 
       export default {
             mounted() {
                   this.listen()
             },
-            props: ['id', 'unreads', 'unseen'],
-            components: {NotificationItem},
+            props: ['id', 'unreads', 'unseen', 'unreadfri'],
+            components: {NotificationItem, FriendnotsItem},
             data() {
               return {
                 unreadNots: this.unreads,
                 unreadReqs: this.unseen,
-                
+                unreadFri: this.unreadfri,
               }
             },
 
@@ -114,8 +115,9 @@
 
                                   if (notification.message === " has just sent a friend request to you.") {
                                       let newUnreadRequests = {data: { name: notification.name, message: notification.message } };
-                                      this.unreadReqs.push(Object.assign({}, this.newUnreadRequests));
-                                    
+                                      //this.unreadReqs.$set(newUnreadRequests);
+                                      this.unreadReqs.push(newUnreadRequests);
+                                      this.unreadFri.push(newUnreadRequests)
                                   }
                         })
                   },
@@ -123,6 +125,12 @@
                   mark_notification_as_read() {
                       if (this.unreadNots.length) {
                           axios.get('/mark_notification_as_read');
+                      }
+                  },
+
+                  mark_request_as_read() {
+                      if (this.unreadReqs.length) {
+                          axios.get('/mark_request_as_read');
                       }
                   }
             }

@@ -102,6 +102,9 @@ Route::group(['middleware' => 'auth'], function(){
 		'as'   => 'mark_notification_as_read'
 	]);
 
-	
+	Route::get('/mark_request_as_read', [
+		'uses' => 'FriendshipsController@mark_request_as_read',
+		'as'   => 'mark_request_as_read'
+	]);
 
 });
