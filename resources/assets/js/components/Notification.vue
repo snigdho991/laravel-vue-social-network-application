@@ -35,12 +35,12 @@
             
             <span v-else>
                 <li style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px; background: #222;">
-                    <span style="color: #fff; margin-left: 17px;">No unread notifications.</span>
+                    <span style="color: #fff; margin-left: 17px;">No unseen friend request.</span>
                 </li>          
             </span>
             
                   <li class="text-center" style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px;"><a href="/requests" style="color: #27aae1;">
-              See all notifications</a></li>
+              See all requests</a></li>
         </ul>
       </li>
 
@@ -61,7 +61,7 @@
               
               <span v-else>
                   <li style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px; background: #222;">
-                      <span style="color: #fff; margin-left: 17px;">No unread notifications.</span>
+                      <span style="color: #fff; margin-left: 17px;">No unread notification.</span>
                   </li>          
               </span>
               
@@ -96,30 +96,30 @@
 
             methods: {
               listen() {
-                        Echo.private('App.User.' + this.id)
-                            .notification( (notification) => {
-                                new Noty({ 
-                                      type:'success', 
-                                      layout:'bottomLeft', 
-                                      text: notification.name + notification.message, 
-                                      timeout: 5000
-                                  }).show()
-                                  
-                                  this.$store.commit('add_nots', notification);
+                    Echo.private('App.User.' + this.id)
+                        .notification( (notification) => {
+                            new Noty({ 
+                                  type:'success', 
+                                  layout:'bottomLeft', 
+                                  text: notification.name + notification.message, 
+                                  timeout: 5000
+                              }).show()
+                              
+                              this.$store.commit('add_nots', notification);
 
-                                  document.getElementById("noty_audio").play();
-                                  //$('#noty_audio').play();
-                                  //document.getElementById("noty_audio").muted = false;
-                                  let newUnreadNotifications = {data: { name: notification.name, message: notification.message } };
-                                  this.unreadNots.push(newUnreadNotifications);
+                              document.getElementById("noty_audio").play();
+                              //$('#noty_audio').play();
+                              //document.getElementById("noty_audio").muted = false;
+                              let newUnreadNotifications = {data: { name: notification.name, message: notification.message } };
+                              this.unreadNots.push(newUnreadNotifications);
 
-                                  if (notification.message === " has just sent a friend request to you.") {
-                                      let newUnreadRequests = {data: { name: notification.name, message: notification.message } };
-                                      //this.unreadReqs.$set(newUnreadRequests);
-                                      this.unreadReqs.push(newUnreadRequests);
-                                      this.unreadFri.push(newUnreadRequests)
-                                  }
-                        })
+                              if (notification.message === " has just sent a friend request to you.") {
+                                  let newUnreadRequests = {data: { name: notification.name, message: notification.message } };
+                                  //this.unreadReqs.$set(newUnreadRequests);
+                                  this.unreadReqs.push(newUnreadRequests);
+                                  this.unreadFri.push(newUnreadRequests)
+                              }
+                    })
                   },
 
                   mark_notification_as_read() {

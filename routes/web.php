@@ -53,8 +53,13 @@ Route::group(['middleware' => 'auth'], function(){
 	  'as'   => 'timeline.background.update'
 	]);
 
-	Route::get('/newsfeed', function () {
-	    return view('newsfeed');
+	Route::get('/collectfeed', [
+	  'uses' => 'FeedsController@feed',
+	  'as'   => 'newsfeed'
+	]);
+
+	Route::get('/newsfeed', function(){
+		return view('newsfeed');
 	});
 
 	Route::get('/notifications', [
@@ -105,6 +110,16 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/mark_request_as_read', [
 		'uses' => 'FriendshipsController@mark_request_as_read',
 		'as'   => 'mark_request_as_read'
+	]);
+
+	Route::post('/create/post/new', [
+		'uses' => 'PostsController@store',
+		'as'   => 'post.store'
+	]);
+
+	Route::post('/post/image/save', [
+		'uses' => 'PostsController@save_image',
+		'as'   => 'post.save.image'
 	]);
 
 });

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
 	state: {
-		nots: []
+		nots: [],
+		posts: []
 	},
 
 	getters: {
@@ -20,6 +21,10 @@ export const store = new Vuex.Store({
 			});
 		},
 
+		all_posts(state) {
+			return state.posts
+		},
+
 		all_nots_count(state) {
 			return state.nots.length
 		}
@@ -28,6 +33,10 @@ export const store = new Vuex.Store({
 	mutations: {
 		add_nots(state, not) {
 			state.nots.push(not)
+		},
+
+		add_posts(state, post) {
+			state.posts.push(post)
 		}
 	}
 })

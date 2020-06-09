@@ -25,7 +25,7 @@
           
                 <div class="feed-item">
                   <div class="live-activity">                   
-                    <img src="{{ Storage::url($not->notifiable_type::where('slug', str_slug($not->data['name']))->first()->avatar) }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;border: 1px solid #ddd;" />
+                    <img src="{{ $not->notifiable_type::where('slug', str_slug($not->data['name']))->first()->avatar }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;border: 1px solid #ddd;" />
                     <p><a href="{{ route('timeline', ['slug' => str_slug($not->data['name']) ]) }}" class="profile-link">{{ $not->data['name'] }}</a> {{ $not->data['message'] }}</p>
                     <p class="text-muted">{{ $not->created_at->diffForHumans() }}</p>
                   </div>

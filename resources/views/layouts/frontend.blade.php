@@ -266,6 +266,7 @@
           }
       });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
   </body>
 
 <!-- Mirrored from mythemestore.com/friend-finder/newsfeed.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 May 2020 13:11:43 GMT -->

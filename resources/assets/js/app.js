@@ -22,6 +22,10 @@ import Unreadnotification from './components/Unreadnotification'
 
 var friend = Vue.component('friend', require('./components/Friend.vue'))
 var notification = Vue.component('notification', require('./components/Notification.vue'))
+var post = Vue.component('post', require('./components/Post.vue'))
+var feed = Vue.component('feed', require('./components/Feed.vue'))
+
+
 /*var unreadnots = Vue.component('unreadnots', require('./components/Unreadnotification.vue'))
 var limited = Vue.component('limited', require('./components/Limitedunnots.vue'))*/
 
@@ -34,6 +38,8 @@ const app = new Vue({
 	components: {
 	    'friend': friend,
 	    'notification': notification,
+	    'post': post,
+	    'feed': feed
 	    /*'unreadnots': unreadnots,
 	    'limited': limited*/
 	}

@@ -10,34 +10,34 @@
       border: 10px solid #FFF;
   }
 
-      .file-upload {
-        position: relative;
-        display: inline-block;
-    }
-    
-    .file-upload__label {
-        display: block;
-        padding: 3px;
-        color: #fff;
-        background: #8dc63f;
-        transition: background .3s;
-        cursor: pointer;
-        border-radius: 4px;
-        text-align: center;
-    }
-    
-    .file-upload__input {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        
-        width: 0;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-    }
+  .file-upload {
+      position: relative;
+      display: inline-block;
+  }
+  
+  .file-upload__label {
+      display: block;
+      padding: 3px;
+      color: #fff;
+      background: #8dc63f;
+      transition: background .3s;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+  }
+  
+  .file-upload__input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      
+      width: 0;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+  }
 </style>
 
     <div class="container">

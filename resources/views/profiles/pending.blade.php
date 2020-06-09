@@ -25,7 +25,7 @@
                 
                       <div class="feed-item">
                         <div class="live-activity">                   
-                          <img src="{{ Storage::url($request->avatar) }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;border: 1px solid #ddd;" />
+                          <img src="{{ $request->avatar }}" alt="Image" class="profile-photo-md pull-left" style="margin-right: 10px;border: 1px solid #ddd;" />
                           <p><a href="{{ route('timeline', ['slug' => str_slug($request->firstname .'-'. $request->lastname) ]) }}" class="profile-link">{{ $request->firstname .' '. $request->lastname }}</a> <b>&rArr;</b> {{ \App\Friendship::where('requester', $request->id)->where('user_requested', Auth::id())->first()->created_at->diffForHumans() }}</p>
                           <friend :get_user_id="{{ $request->id }}"></friend>
                           <p class="text-muted"></p>

@@ -5,17 +5,17 @@
       min-height: 360px;
       border-radius: 0 0 4px 4px;
       position: relative;
-  }
+    }
 </style>
 
-    <div class="timeline-cover" style="background: url({{ Storage::url($user->cover) }}) no-repeat;">
+    <div class="timeline-cover" style="background: url({{ $user->cover }}) no-repeat;">
 
           <!--Timeline Menu for Large Screens-->
           <div class="timeline-nav-bar hidden-sm hidden-xs">
             <div class="row">
               <div class="col-md-3">
                 <div class="profile-info">
-                  <img src="{{ Storage::url($user->avatar) }}" alt="Profile Picture" class="img-responsive profile-photo" />
+                  <img src="{{ $user->avatar }}" alt="Profile Picture" class="img-responsive profile-photo" />
                   <h3>{{ $user->firstname.' '.$user->lastname }}</h3>
                   <p class="text-muted"></p>
                 </div>

@@ -38,12 +38,13 @@
               
           @if(Auth::check())
 
-          <notification :id="{{ Auth::id() }}" :unreads="{{ auth()->user()->unreadNotifications }}" :unseen="{{ auth()->user()->notifications->where('type', 'App\Notifications\NewFriendRequest') }}" :unreadfri="{{ auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest') }}"></notification>
-            <audio id="noty_audio">
-                <source src="{{ asset('audio/notify.mp3') }}">
-                <source src="{{ asset('audio/notify.oog') }}">
-                <source src="{{ asset('audio/notify.wav') }}">
-            </audio>              
+              <notification :id="{{ Auth::id() }}" :unreads="{{ auth()->user()->unreadNotifications }}" :unseen="{{ auth()->user()->notifications->where('type', 'App\Notifications\NewFriendRequest') }}" :unreadfri="{{ auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest') }}"></notification>
+              
+                <audio id="noty_audio">
+                    <source src="{{ asset('audio/notify.mp3') }}">
+                    <source src="{{ asset('audio/notify.oog') }}">
+                    <source src="{{ asset('audio/notify.wav') }}">
+                </audio>              
           
           @endif 
               <!-- <li class="dropdown"><a href="contact.html">Contact</a></li>

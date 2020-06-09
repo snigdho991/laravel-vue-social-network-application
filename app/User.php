@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Storage;
 use App\Traits\Friendable;
 use Illuminate\Notifications\Notifiable;
-//use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -33,6 +33,21 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne('App\Profile'); 
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post'); 
+    }
+
+    public function getAvatarAttribute($avatar)
+    {
+        return asset(Storage::url($avatar));
+    }
+
+    public function getCoverAttribute($cover)
+    {
+        return asset(Storage::url($cover));
     }
 
 }
