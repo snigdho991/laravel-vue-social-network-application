@@ -82,7 +82,7 @@
 
       export default {
             mounted() {
-                  this.listen()
+                this.listen()
             },
             props: ['id', 'unreads', 'unseen', 'unreadfri'],
             components: {NotificationItem, FriendnotsItem},
@@ -114,10 +114,10 @@
                               this.unreadNots.push(newUnreadNotifications);
 
                               if (notification.message === " has just sent a friend request to you.") {
-                                  let newUnreadRequests = {data: { name: notification.name, message: notification.message } };
+                                  let newUnreadRequests = { data: { name: notification.name, message: notification.message } };
                                   //this.unreadReqs.$set(newUnreadRequests);
                                   this.unreadReqs.push(newUnreadRequests);
-                                  this.unreadFri.push(newUnreadRequests)
+                                  this.unreadFri.push(newUnreadRequests);
                               }
                     })
                   },

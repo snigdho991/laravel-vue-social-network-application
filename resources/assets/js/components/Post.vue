@@ -8,7 +8,7 @@
 					
 			      <div class="form-group">
 			        <img :src="user.avatar" alt="" class="profile-photo-md" />
-			        <textarea id="exampleTextarea" cols="60" rows="4" class="form-control" placeholder="Write what you wish" v-model="content"></textarea>
+			        <textarea v-model.trim="content" id="exampleTextarea" cols="60" rows="4" class="form-control" placeholder="Write what you wish"></textarea>
 			      </div>
 
 			    </div>
@@ -88,12 +88,16 @@ export default {
 				 	this.content = ''
 				 	new Noty({ 
                         type:'info', 
-                        layout:'bottomLeft', 
+                        layout:'bottomLeft',
                         text: 'Your post has been published successfully !', 
                         timeout: 3000
                     }).show();
 
+                    this.$store.commit('add_new_posts', resp.data);
+
                     document.getElementById("noty_audio").play();
+                    //this.$store.commit('add_posts', resp.data);
+
 				})
 		},
 
@@ -116,7 +120,7 @@ export default {
 
 		uploadImg() {
 			axios.post('/post/image/save', { image: this.image, content: this.content })
-				 .then((resp) => {
+				 .then((response) => {
 				 	this.content = ''
 				 	this.image = ''
 				 	new Noty({ 
@@ -126,17 +130,16 @@ export default {
                         timeout: 3000
                     }).show();
 
+                    this.$store.commit('add_new_posts', response.data);
+
                     document.getElementById("noty_audio").play();
 
-                    console.log(resp)
-                    
 			})
 		},
 
 		removeImg() {
 			this.image = ''
 		}
-
 
 	},
 

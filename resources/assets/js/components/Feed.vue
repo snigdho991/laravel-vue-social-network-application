@@ -2,42 +2,87 @@
 	<!-- Post Content
     ================================================= -->
   <div>
-      <div class="post-content" v-for="post in posts">
+
+      <div class="post-content" v-if="newposts" v-for="post in newposts">
         <div v-if="post.image">
           <img :src="post.image" style="height: 300px;" alt="post-image" class="img-responsive post-image" />
         </div>
 
         <div class="post-container">
-          <img :src="post.user.avatar" alt="user" class="profile-photo-md pull-left" />
-          <div class="post-detail">
-            <div class="user-info">
-              <h5><a href="timeline.html" class="profile-link">{{ post.user.firstname + ' ' + post.user.lastname }}</a> <span class="following">following</span></h5>
-              <p class="text-muted">{{ post.created_at | postTime}} <i class="fa fa-globe" style="margin-left: 3px;"></i></p>
-            </div>
-            <div class="reaction">
-              <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
-              <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
-            </div>
-            <div class="line-divider"></div>
-            <div class="post-text" v-if="post.content">
-              <p>{{ post.content }} </p>
-              <div class="line-divider"></div>
-            </div>
+          
+            <img :src="post.user.avatar" :title="post.user.firstname + ' ' + post.user.lastname" alt="user" class="profile-photo-md pull-left" />
+            <div class="post-detail">
+              <div class="user-info">
+                <h5><a :href="'/timeline/' + post.user.firstname + '-' + post.user.lastname" class="profile-link">{{ post.user.firstname + ' ' + post.user.lastname }}</a>    
+                  <span class="following pull-right"><b>{{ post.comments.length }} comments</b></span>
+                </h5>
+                <p class="text-muted">{{ post.created_at | postTime }} <i class="fa fa-globe" style="margin-left: 3px;"></i></p>
+              </div>
+              <!-- <div class="reaction">
+                <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+              </div> -->
+              
+                
+                  <div class="post-text" v-if="post.content">
+                    <div class="line"></div> <p>{{ post.content }} </p>
+                    
+                  </div>
+              
+                  <div class="line"></div>
+                    
+                  <like :id="post.id"></like>
 
-            <!-- <div class="post-comment">
-              <img src="images/users/user-11.jpg" alt="" class="profile-photo-sm" />
-              <p><a href="timeline.html" class="profile-link">Diana </a><i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+                  <comment :auth="auth.avatar" :post="post"></comment>
+
             </div>
-            <div class="post-comment">
-              <img src="images/users/user-4.jpg" alt="" class="profile-photo-sm" />
-              <p><a href="timeline.html" class="profile-link">John</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
-            </div>
-            <div class="post-comment">
-              <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
-              <input type="text" class="form-control" placeholder="Post a comment">
-            </div> -->
-          </div>
+          
         </div>
+
+      </div>
+      
+      <div class="post-content" v-if="allposts" v-for="post in posts.data">
+        <div v-if="post.image">
+          <img :src="post.image" style="height: 300px;" alt="post-image" class="img-responsive post-image" />
+        </div>
+
+        <div class="post-container">
+          
+            <img :src="post.user.avatar" :title="post.user.firstname + ' ' + post.user.lastname" alt="user" class="profile-photo-md pull-left" />
+            <div class="post-detail">
+              <div class="user-info">
+                <h5><a :href="'/timeline/' + post.user.firstname + '-' + post.user.lastname" class="profile-link">{{ post.user.firstname + ' ' + post.user.lastname }}</a>    
+                  <span class="following pull-right"><b>{{ post.comments.length }} comments</b></span>
+                </h5>
+                <p class="text-muted">{{ post.created_at | postTime}} <i class="fa fa-globe" style="margin-left: 3px;"></i></p>
+              </div>
+              <!-- <div class="reaction">
+                <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+                <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+              </div> -->
+              
+                
+                  <div class="post-text" v-if="post.content">
+                    <div class="line"></div> <p>{{ post.content }} </p>
+                    
+                  </div>
+              
+                  <div class="line"></div>
+                    
+                  <like :id="post.id"></like>
+
+                  <comment :auth="auth.avatar" :post="post"></comment>
+
+            </div>
+          
+        </div>
+
+      </div>
+
+      <div class="text-center">
+        <!-- <div ref="infinitescrolltriger" id="scroll_trigger"></div>
+        <span class="btn btn-primary" v-if="loadMore"></span> -->
+        <button class="btn btn-primary" @click="get_feed">More Posts</button>
       </div>
 
     <!-- Video Content
@@ -82,73 +127,6 @@
       </div>
     </div>
     
-    Only Content
-    =================================================
-    <div class="post-content">
-      <div class="post-container">
-        <img src="images/users/user-2.jpg" alt="user" class="profile-photo-md pull-left" />
-        <div class="post-detail">
-          <div class="user-info">
-            <h5><a href="timeline.html" class="profile-link">Linda Lohan</a> <span class="following">following</span></h5>
-            <p class="text-muted">Published a photo about 1 hour ago</p>
-          </div>
-          <div class="reaction">
-            <a class="btn text-green"><i class="icon ion-thumbsup"></i> 23</a>
-            <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 4</a>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-text">
-            <p><i class="em em-thumbsup"></i> <i class="em em-thumbsup"></i> Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-comment">
-            <img src="images/users/user-12.jpg" alt="" class="profile-photo-sm" />
-            <p><a href="timeline.html" class="profile-link">Cris </a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam <i class="em em-muscle"></i></p>
-          </div>
-          <div class="post-comment">
-            <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
-            <input type="text" class="form-control" placeholder="Post a comment">
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    Image Content
-    =================================================
-    <div class="post-content">
-      <img src="images/post-images/2.jpg" alt="post-image" class="img-responsive post-image" />
-      <div class="post-container">
-        <img src="images/users/user-4.jpg" alt="user" class="profile-photo-md pull-left" />
-        <div class="post-detail">
-          <div class="user-info">
-            <h5><a href="timeline.html" class="profile-link">John Doe</a> <span class="following">following</span></h5>
-            <p class="text-muted">Published a photo about 2 hour ago</p>
-          </div>
-          <div class="reaction">
-            <a class="btn text-green"><i class="icon ion-thumbsup"></i> 39</a>
-            <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 2</a>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-text">
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt</p>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-comment">
-            <img src="images/users/user-13.jpg" alt="" class="profile-photo-sm" />
-            <p><a href="timeline.html" class="profile-link">Brian </a>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-          </div>
-          <div class="post-comment">
-            <img src="images/users/user-8.jpg" alt="" class="profile-photo-sm" />
-            <p><a href="timeline.html" class="profile-link">Richard</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-          </div>
-          <div class="post-comment">
-            <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
-            <input type="text" class="form-control" placeholder="Post a comment">
-          </div>
-        </div>
-      </div>
-    </div>
-    
     Map Content
     =================================================
     <div class="post-content">
@@ -182,66 +160,106 @@
         </div>
       </div>
     </div>
-    
-    Post Content
-    =================================================
-    <div class="post-content">
-      <img src="images/post-images/11.jpg" alt="" class="img-responsive post-image" />
-      <div class="post-container">
-        <img src="images/users/user-9.jpg" alt="user" class="profile-photo-md pull-left" />
-        <div class="post-detail">
-          <div class="user-info">
-            <h5><a href="timeline.html" class="profile-link">Anna Young</a> <span class="following">following</span></h5>
-            <p class="text-muted">Published a photo about 4 hour ago</p>
-          </div>
-          <div class="reaction">
-            <a class="btn text-green"><i class="icon ion-thumbsup"></i> 2</a>
-            <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-text">
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
-          </div>
-          <div class="line-divider"></div>
-          <div class="post-comment">
-            <img src="images/users/user-10.jpg" alt="" class="profile-photo-sm" />
-            <p><a href="timeline.html" class="profile-link">Julia </a>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</p>
-          </div>
-          <div class="post-comment">
-            <img src="images/users/user-1.jpg" alt="" class="profile-photo-sm" />
-            <input type="text" class="form-control" placeholder="Post a comment">
-          </div>
-        </div>
-      </div>
-    </div> -->
+    -->
   </div>
 </template>
 
 <script>
+
+import Like from './Like.vue';
+import Comment from './Comment.vue';
+
+
 export default {
 	mounted() {
 		this.get_feed()
-	},
+  },
+
+  props : ['auth'],
+
+  data: () => ({
+    posts: {
+      data: []
+    },
+    /*current_page: '',
+    per_page: '',
+    total: '',
+    page_count: '',
+    loadMore: false*/
+  }),
+
+  components: {
+      Like, Comment
+  },
 
 	methods: {
 		get_feed() {
-			axios.get('/collectfeed')
-				 .then( (resp) => {
-				 	resp.data.forEach( (post) => {
-				 		this.$store.commit('add_posts', post)
-            Vue.filter('postTime', function(value){
-                return moment(value).fromNow();
-            })
+      /*let observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          console.log(entry)
+          if(entry.intersectionRatio > 0 && this.current_page < this.page_count) {
+            this.loadMore = true;
+            setTimeout(() => {
+              this.current_page += 1;
+              this.loadMore = false;
+            }, 2000);
+          }
+        });
+      });
 
-				 	})
-				 })
-		}
+      observer.observe(this.$refs.infinitescrolltriger);*/
+
+
+      const url2 = this.posts.next_page_url ? this.posts.next_page_url : `/collectfeed`
+
+      axios.get(url2).then(({ data }) => {
+
+        data.data.forEach( (post) => {
+            this.$store.commit('add_posts', post)        
+              Vue.filter('postTime', function(value){
+                  return moment(value).utc(+6).fromNow();
+              })
+        })
+
+        /*this.current_page = data.current_page
+        this.per_page = data.per_page
+        this.total = data.total
+        this.page_count = data.last_page*/
+
+        this.posts = {
+          ...data,
+          data: [
+            ...this.posts.data,
+            ...data.data,
+          ]
+        }
+
+      })
+		},
+
+    
 	},
 
   computed: {
-    posts() {
+    allposts() {
       return this.$store.getters.all_posts
-    }
-  },
+    },
+
+    newposts() {
+      return this.$store.getters.new_posts
+    },
+  }
+  
 }
 </script>
+
+<style type="text/css">
+  .line {
+    background: none;
+    height: 1px;
+    border-top: 1px dashed #e6e6e6;
+    margin-bottom: 13px;
+    width: 595px;
+    margin-left: -85px;
+  }
+</style>

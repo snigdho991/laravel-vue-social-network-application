@@ -28,6 +28,14 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::group(['middleware' => 'auth'], function(){
 
+	Route::get('/newsfeed', function(){
+		return view('newsfeed');
+	});
+
+	Route::get('/get_auth_user_data', function(){
+		return Auth::user();
+	});
+
 	Route::get('/timeline/{slug}', [
 	  'uses' => 'ProfilesController@index',
 	  'as'   => 'timeline'
@@ -57,10 +65,6 @@ Route::group(['middleware' => 'auth'], function(){
 	  'uses' => 'FeedsController@feed',
 	  'as'   => 'newsfeed'
 	]);
-
-	Route::get('/newsfeed', function(){
-		return view('newsfeed');
-	});
 
 	Route::get('/notifications', [
 		'uses' => 'ProfilesController@notifications',
@@ -121,5 +125,26 @@ Route::group(['middleware' => 'auth'], function(){
 		'uses' => 'PostsController@save_image',
 		'as'   => 'post.save.image'
 	]);
+
+	Route::get('/like/{id}', [
+		'uses' => 'PostsController@like',
+		'as'   => 'post.like'
+	]);
+
+	Route::get('/unlike/{id}', [
+		'uses' => 'PostsController@unlike',
+		'as'   => 'post.unlike'
+	]);
+
+	Route::get('post/{post}/comments', [
+		'uses' => 'CommentController@index',
+		'as'   => 'comments'
+	]);
+
+	Route::post('comment/{post}', [
+		'uses' => 'CommentController@store',
+		'as'   => 'add.comment'
+	]);
+
 
 });

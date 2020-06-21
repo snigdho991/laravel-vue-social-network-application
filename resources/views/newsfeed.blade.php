@@ -22,7 +22,7 @@
             </audio>
             <!-- Post Create Box End-->
             
-            <feed></feed>
+            <feed :auth="{{ Auth::user() }}"></feed>
             
           </div>
 
