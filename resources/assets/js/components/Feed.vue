@@ -2,8 +2,13 @@
 	<!-- Post Content
     ================================================= -->
   <div>
+    <div class="post-content" v-if="newposts.length < 1 && allposts.length < 1">
+        <div class="post-container">
+            <p>No status available in your newsfeed. <span style="color: #5bc0de;">Add friends</span> or <span style="color: #5bc0de;">Punblish a post</span> to explore the newsfeed.</p>
+        </div>
+    </div>
 
-      <div class="post-content" v-if="newposts" v-for="post in newposts">
+    <div class="post-content" v-if="newposts" v-for="post in newposts">
         <div v-if="post.image">
           <img :src="post.image" style="height: 300px;" alt="post-image" class="img-responsive post-image" />
         </div>
@@ -39,7 +44,7 @@
           
         </div>
 
-      </div>
+    </div>
       
       <div class="post-content" v-if="allposts" v-for="post in posts.data">
         <div v-if="post.image">
@@ -82,7 +87,11 @@
       <div class="text-center">
         <!-- <div ref="infinitescrolltriger" id="scroll_trigger"></div>
         <span class="btn btn-primary" v-if="loadMore"></span> -->
-        <button class="btn btn-primary" @click="get_feed">More Posts</button>
+          <infinite-loading @infinite="get_feed">
+            <span slot="no-more"></span>
+            <span slot="no-results"></span>
+          </infinite-loading>
+          <span class="btn btn-primary" v-if="loadMore">More Posts Loading...</span>
       </div>
 
     <!-- Video Content
@@ -168,11 +177,11 @@
 
 import Like from './Like.vue';
 import Comment from './Comment.vue';
-
+import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
 	mounted() {
-		this.get_feed()
+		
   },
 
   props : ['auth'],
@@ -181,36 +190,21 @@ export default {
     posts: {
       data: []
     },
-    /*current_page: '',
-    per_page: '',
+    current_page: 1,
+    loadMore: false
+    /*per_page: '',
     total: '',
     page_count: '',
     loadMore: false*/
   }),
 
   components: {
-      Like, Comment
+      Like, Comment, InfiniteLoading,
   },
 
 	methods: {
-		get_feed() {
-      /*let observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          console.log(entry)
-          if(entry.intersectionRatio > 0 && this.current_page < this.page_count) {
-            this.loadMore = true;
-            setTimeout(() => {
-              this.current_page += 1;
-              this.loadMore = false;
-            }, 2000);
-          }
-        });
-      });
-
-      observer.observe(this.$refs.infinitescrolltriger);*/
-
-
-      const url2 = this.posts.next_page_url ? this.posts.next_page_url : `/collectfeed`
+		get_feed($state) {
+      const url2 = this.posts.next_page_url ? this.posts.next_page_url : '/collectfeed?page=' + this.current_page
 
       axios.get(url2).then(({ data }) => {
 
@@ -221,22 +215,25 @@ export default {
               })
         })
 
-        /*this.current_page = data.current_page
-        this.per_page = data.per_page
-        this.total = data.total
-        this.page_count = data.last_page*/
-
-        this.posts = {
-          ...data,
-          data: [
-            ...this.posts.data,
-            ...data.data,
-          ]
+        /*this.current_page = data.current_page*/
+        if (data.data.length) {
+            this.loadMore = true
+            this.current_page += 1;
+            this.posts = {
+              ...data,
+              data: [
+                ...this.posts.data,
+                ...data.data,
+              ]
+            }
+            $state.loaded();
+        } else {
+            this.loadMore = false
+            $state.complete();
         }
 
       })
 		},
-
     
 	},
 

@@ -42,15 +42,15 @@ class FeedsController extends Controller
         $page = Paginator::resolveCurrentPage('page') ?: 1;
 
         // Assume 15 items per page... so start index to slice our array
-        $startIndex = ($page - 1) * 5;
+        $startIndex = ($page - 1) * 15;
 
         // Length aware paginator needs a total count of items... to paginate properly
         $total = count($feeds);
 
         // Eliminate the non relevant items...
-        $results = array_slice($feeds, $startIndex, 5);
+        $results = array_slice($feeds, $startIndex, 15);
 
-        $myfeed =  new LengthAwarePaginator($results, $total, 5, $page, [
+        $myfeed =  new LengthAwarePaginator($results, $total, 15, $page, [
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => 'page',
         ]);
