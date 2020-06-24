@@ -23,7 +23,11 @@
             @include('includes.timeline-left')
             <div class="col-md-7">
               <div class="block-title">
-                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i> Friend List </h4>
+                @if(Auth::id() === $user->id)
+                    <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i> My Friends - <span class="badge" style="margin-top: -6px;">{{ count($friendcount) }}</span></h4>
+                @else
+                    <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i> {{ $user->firstname }}'s Friends - <span class="badge" style="margin-top: -6px;">{{ count($friendcount) }}</span></h4>
+                @endif
                   
                   <div class="line"></div>
               </div>
@@ -36,12 +40,14 @@
             <div class="col-md-2 static">
               <div id="sticky-sidebar">
                 <h4 class="grey">Sarah's activity</h4>
-                <div class="feed-item">
-                  <div class="live-activity">
-                    <p><b>{{ $result }}</b> mutual friends.</p>
-                    
+                @if(Auth::id() !== $user->id)
+                  <div class="feed-item">
+                    <div class="live-activity">
+                      <p><span class="badge" style="background: #8dc63f;margin-right: 3px;"> {{ $result }} </span> mutual friends.</p>
+                      
+                    </div>
                   </div>
-                </div>
+                @endif
                 <div class="feed-item">
                   <div class="live-activity">
                     <p><a href="#" class="profile-link">Sarah</a> Has posted a photo</p>

@@ -57,4 +57,33 @@ class FeedsController extends Controller
         
         return $myfeed;
     }
+
+    public function timelinefeed() {
+        $feeds = array();       
+        
+        $posts = Auth::user()->posts;
+        foreach ($posts->sortByDesc('created_at') as $post) {
+            array_push($feeds, $post);
+        }
+
+        // this basically gets the request's page variable... or defaults to 1
+        $page = Paginator::resolveCurrentPage('page') ?: 1;
+
+        // Assume 15 items per page... so start index to slice our array
+        $startIndex = ($page - 1) * 15;
+
+        // Length aware paginator needs a total count of items... to paginate properly
+        $total = count($feeds);
+
+        // Eliminate the non relevant items...
+        $results = array_slice($feeds, $startIndex, 15);
+
+        $myfeed =  new LengthAwarePaginator($results, $total, 15, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
+        
+        return $myfeed;
+
+    }
 }

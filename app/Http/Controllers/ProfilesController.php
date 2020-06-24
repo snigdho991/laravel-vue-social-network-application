@@ -33,7 +33,7 @@ class ProfilesController extends Controller
         
         $result = array_sum($muarr);
 
-        return view('profiles.friendlist')->with('user', $user)->with('title', $slug)->with('result', $result);
+        return view('profiles.friendlist')->with('user', $user)->with('title', $slug)->with('result', $result)->with('friendcount', $find);
     }
 
     public function friendlist($slug)

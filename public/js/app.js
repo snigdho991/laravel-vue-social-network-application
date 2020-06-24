@@ -54073,7 +54073,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54096,6 +54096,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
+		/*Vue.filter('replyTime', function(value){
+          	return moment(value).utc(+6).fromNow();
+      	})*/
+	},
+	beforeMount: function beforeMount() {
 		Vue.filter('replyTime', function (value) {
 			return moment(value).utc(+6).fromNow();
 		});
@@ -54934,7 +54939,7 @@ exports = module.exports = __webpack_require__(2)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54976,7 +54981,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 	mounted: function mounted() {
 		this.is_friends_with();
-
+	},
+	beforeMount: function beforeMount() {
 		Vue.filter('friendTime', function (value) {
 			return moment(value).utc(+6).fromNow();
 		});
@@ -55043,15 +55049,18 @@ var render = function() {
                       ])
                     : _vm._e()
                 ])
-              : _c("div", [
+              : _vm.authuser.id === _vm.user.id
+              ? _c("div", [
                   _c("p", { staticClass: "pull-right text-muted" }, [
+                    _c("i", { staticClass: "fa fa-hand-o-right" }),
                     _vm._v(
-                      "\n\t\t\t\t\t" +
+                      " " +
                         _vm._s(_vm._f("friendTime")(_vm.friend.created_at)) +
                         "\n\t\t\t\t"
                     )
                   ])
-                ]),
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c("h5", [
               _c(

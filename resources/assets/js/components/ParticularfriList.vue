@@ -11,9 +11,9 @@
 					</a>
 		        </div>
 
-		        <div v-else>
+		        <div v-else-if="authuser.id === user.id">
 					<p class="pull-right text-muted">
-						{{ friend.created_at | friendTime}}
+						<i class="fa fa-hand-o-right"></i> {{ friend.created_at | friendTime }}
 					</p>
 		        </div>
 
@@ -30,11 +30,13 @@ export default {
 
 	mounted() {
 		this.is_friends_with()
+            		
+	},
 
+	beforeMount() {
 		Vue.filter('friendTime', function(value){
 			return moment(value).utc(+6).fromNow();
 		})
-            		
 	},
 
 	props: ['friend', 'user'],

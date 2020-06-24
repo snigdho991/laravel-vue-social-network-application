@@ -76,6 +76,11 @@ Route::group(['middleware' => 'auth'], function(){
 	  'as'   => 'newsfeed'
 	]);
 
+	Route::get('/timelinefeed', [
+	  'uses' => 'FeedsController@timelinefeed',
+	  'as'   => 'timelinefeed'
+	]);
+
 	Route::get('/notifications', [
 		'uses' => 'ProfilesController@notifications',
 		'as'   => 'notifications'
