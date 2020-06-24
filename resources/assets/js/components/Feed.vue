@@ -2,9 +2,9 @@
 	<!-- Post Content
     ================================================= -->
   <div>
-    <div class="post-content" v-if="newposts.length < 1 && allposts.length < 1">
+    <div class="post-content" v-if="newposts.length === 0 && allposts.length === 0">
         <div class="post-container">
-            <p>No status available in your newsfeed. <span style="color: #5bc0de;">Add friends</span> or <span style="color: #5bc0de;">Punblish a post</span> to explore the newsfeed.</p>
+            <p>No update available in your newsfeed. <span style="color: #5bc0de;">Add friends</span> or <span style="color: #5bc0de;">Punblish a post</span> to explore the newsfeed.</p>
         </div>
     </div>
 
@@ -46,53 +46,59 @@
 
     </div>
       
-      <div class="post-content" v-if="allposts" v-for="post in posts.data">
-        <div v-if="post.image">
-          <img :src="post.image" style="height: 300px;" alt="post-image" class="img-responsive post-image" />
-        </div>
+    <div class="post-content" v-if="allposts" v-for="post in posts.data">
+      <div v-if="post.image">
+        <img :src="post.image" style="height: 300px;" alt="post-image" class="img-responsive post-image" />
+      </div>
 
-        <div class="post-container">
-          
-            <img :src="post.user.avatar" :title="post.user.firstname + ' ' + post.user.lastname" alt="user" class="profile-photo-md pull-left" />
-            <div class="post-detail">
-              <div class="user-info">
-                <h5><a :href="'/timeline/' + post.user.firstname + '-' + post.user.lastname" class="profile-link">{{ post.user.firstname + ' ' + post.user.lastname }}</a>    
-                  <span class="following pull-right"><b>{{ post.comments.length }} comments</b></span>
-                </h5>
-                <p class="text-muted">{{ post.created_at | postTime}} <i class="fa fa-globe" style="margin-left: 3px;"></i></p>
-              </div>
-              <!-- <div class="reaction">
-                <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
-                <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
-              </div> -->
-              
-                
-                  <div class="post-text" v-if="post.content">
-                    <div class="line"></div> <p>{{ post.content }} </p>
-                    
-                  </div>
-              
-                  <div class="line"></div>
-                    
-                  <like :id="post.id"></like>
-
-                  <comment :auth="auth.avatar" :post="post"></comment>
-
+      <div class="post-container">
+        
+          <img :src="post.user.avatar" :title="post.user.firstname + ' ' + post.user.lastname" alt="user" class="profile-photo-md pull-left" />
+          <div class="post-detail">
+            <div class="user-info">
+              <h5><a :href="'/timeline/' + post.user.firstname + '-' + post.user.lastname" class="profile-link">{{ post.user.firstname + ' ' + post.user.lastname }}</a>    
+                <span class="following pull-right"><b>{{ post.comments.length }} comments</b></span>
+              </h5>
+              <p class="text-muted">{{ post.created_at | postTime}} <i class="fa fa-globe" style="margin-left: 3px;"></i></p>
             </div>
-          
+            <!-- <div class="reaction">
+              <a class="btn text-green"><i class="icon ion-thumbsup"></i> 13</a>
+              <a class="btn text-red"><i class="fa fa-thumbs-down"></i> 0</a>
+            </div> -->
+            
+              
+                <div class="post-text" v-if="post.content">
+                  <div class="line"></div> <p>{{ post.content }} </p>
+                  
+                </div>
+            
+                <div class="line"></div>
+                  
+                <like :id="post.id"></like>
+
+                <comment :auth="auth.avatar" :post="post"></comment>
+
+          </div>
+        
+      </div>
+
+    </div>
+
+    <div class="text-center">
+      <!-- <div ref="infinitescrolltriger" id="scroll_trigger"></div>
+      <span class="btn btn-primary" v-if="loadMore"></span> -->
+        <infinite-loading @infinite="get_feed">
+          <span slot="no-more"></span>
+          <span slot="no-results"></span>
+        </infinite-loading>
+        <span class="btn btn-primary" v-if="loadMore">More Posts Loading...</span>
+    </div>
+
+    <div class="post-content" v-if="endfeed" style="margin-top: 45px;">
+        <div class="post-container" v-if="newposts.length > 0 || allposts.length > 0">
+            <p>No further post is available in your newsfeed. You can refresh the <a href="/newsfeed">newsfeed</a> to get more updates.</p>
         </div>
-
-      </div>
-
-      <div class="text-center">
-        <!-- <div ref="infinitescrolltriger" id="scroll_trigger"></div>
-        <span class="btn btn-primary" v-if="loadMore"></span> -->
-          <infinite-loading @infinite="get_feed">
-            <span slot="no-more"></span>
-            <span slot="no-results"></span>
-          </infinite-loading>
-          <span class="btn btn-primary" v-if="loadMore">More Posts Loading...</span>
-      </div>
+    </div>
 
     <!-- Video Content
     =================================================
@@ -191,7 +197,8 @@ export default {
       data: []
     },
     current_page: 1,
-    loadMore: false
+    loadMore: false,
+    endfeed: false
     /*per_page: '',
     total: '',
     page_count: '',
@@ -230,6 +237,7 @@ export default {
         } else {
             this.loadMore = false
             $state.complete();
+            this.endfeed = true
         }
 
       })

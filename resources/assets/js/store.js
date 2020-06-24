@@ -9,6 +9,7 @@ export const store = new Vuex.Store({
 		nots: [],
 		posts: [],
 		newposts: [],
+		mutualfriends: [],
 		auth_user: {}
 	},
 
@@ -21,6 +22,10 @@ export const store = new Vuex.Store({
 
 		all_posts(state) {
 			return state.posts
+		},
+
+		all_mutual(state) {
+			return state.mutualfriends
 		},
 
 		new_posts(state) {
@@ -40,6 +45,10 @@ export const store = new Vuex.Store({
 		add_posts(state, post) {
 			//state.posts.splice(0, 0, post)
 			state.posts.push(post)
+		},
+
+		add_mutual(state, mutual) {
+			state.mutualfriends.push(mutual)
 		},
 
 		add_new_posts(state, newpost) {

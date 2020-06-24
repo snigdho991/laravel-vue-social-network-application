@@ -75,7 +75,7 @@
             		console.log(resp)
             		this.status = resp.data.status
                     this.loading = false
-            	})
+                })
         },
 
         props: ['get_user_id'],

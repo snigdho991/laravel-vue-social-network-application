@@ -7,6 +7,9 @@ use App\User;
 use Auth;
 use Session;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class ProfilesController extends Controller
 {
     public function index($slug)
@@ -15,10 +18,54 @@ class ProfilesController extends Controller
     	return view('profiles.timeline')->with('user', $user)->with('title', $slug);
     }
 
-    public function basic($slug)
+    public function friends($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+
+        $muarr = array();
+        $find = $user->friends();
+
+        $mu = collect($find)->pluck('id')->toArray();
+        
+        foreach ($mu as $new) {
+            array_push($muarr, Auth::user()->is_friends_with($new));
+        }
+        
+        $result = array_sum($muarr);
+
+        return view('profiles.friendlist')->with('user', $user)->with('title', $slug)->with('result', $result);
+    }
+
+    public function friendlist($slug)
     {
     	$user = User::where('slug', $slug)->first();
-    	return view('profiles.basic')->with('user', $user)->with('title', $slug);
+        $find = $user->friends();
+
+        // this basically gets the request's page variable... or defaults to 1
+        $page = Paginator::resolveCurrentPage('page') ?: 1;
+
+        // Assume 15 items per page... so start index to slice our array
+        $startIndex = ($page - 1) * 2;
+
+        // Length aware paginator needs a total count of items... to paginate properly
+        $total = count($find);
+
+        // Eliminate the non relevant items...
+        $results = array_slice($find, $startIndex, 2);
+
+        $list =  new LengthAwarePaginator($results, $total, 2, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
+        
+        return $list;
+
+    }
+
+    public function basic($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        return view('profiles.basic')->with('user', $user)->with('title', $slug);
     }
 
     public function background($slug)

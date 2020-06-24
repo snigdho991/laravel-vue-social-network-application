@@ -25,6 +25,8 @@ var notification = Vue.component('notification', require('./components/Notificat
 var post = Vue.component('post', require('./components/Post.vue'))
 var feed = Vue.component('feed', require('./components/Feed.vue'))
 var init = Vue.component('init', require('./components/Init.vue'))
+var friendlist = Vue.component('friendlist', require('./components/FriendList.vue'))
+
 
 
 /*var unreadnots = Vue.component('unreadnots', require('./components/Unreadnotification.vue'))
@@ -41,7 +43,8 @@ const app = new Vue({
 	    'notification': notification,
 	    'post': post,
 	    'feed': feed,
-	    'init': init
+	    'init': init,
+	    'friendlist': friendlist,
 	    /*'unreadnots': unreadnots,
 	    'limited': limited*/
 	}

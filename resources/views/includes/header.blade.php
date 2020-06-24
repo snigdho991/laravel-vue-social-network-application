@@ -38,7 +38,7 @@
               
           @if(Auth::check())
 
-              <notification :id="{{ Auth::id() }}" :unreads="{{ auth()->user()->unreadNotifications }}" :unseen="{{ auth()->user()->notifications->where('type', 'App\Notifications\NewFriendRequest') }}" :unreadfri="{{ auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest') }}"></notification>
+              <notification :id="{{ Auth::id() }}" :unreads="{{ auth()->user()->unreadNotifications }}" :unseen="{{ \App\Friendship::where('user_requested', Auth::id())->where('status', 0)->get() }}" :unreadfri="{{ auth()->user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest') }}"></notification>
               
                 <audio id="noty_audio">
                     <source src="{{ asset('audio/notify.mp3') }}">

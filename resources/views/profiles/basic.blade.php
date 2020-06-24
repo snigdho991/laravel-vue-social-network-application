@@ -1,7 +1,3 @@
-@extends('layouts.frontend')
-
-@section('content')
-
 <style type="text/css">
   .timeline-cover .timeline-nav-bar .profile-info img.profile-photo {
       height: 202px;
@@ -40,6 +36,10 @@
   }
 </style>
 
+@extends('layouts.frontend')
+
+@section('content')
+
     <div class="container">
 
       <!-- Timeline
@@ -49,7 +49,7 @@
         <div id="page-contents">
           <div class="row">
             @include('includes.timeline-left')
-            <div class="col-md-7">
+        <div class="col-md-7">
 
               <!-- Basic Information
               ================================================= -->

@@ -1329,9 +1329,9 @@ ul.online-users li span.online-dot{
   padding: 0 20px 10px;
 }
 
-.friend-list .friend-card .card-info img.profile-photo-lg{
+.friend-list .friend-card .card-info img.profile-photo-lg {
   margin-top: -60px;
-  border: 7px solid #fff;
+  border: 7px solid #f1f1f1;
 }
 
 

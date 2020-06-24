@@ -62,7 +62,7 @@ class FriendshipsController extends Controller
         return Auth::user()->unreadNotifications->markAsRead();
     }
 
-    public function pending_friend_requests()
+    public function pending_requests()
     {
         Auth::user()->unreadNotifications->where('type', 'App\Notifications\NewFriendRequest')->markAsRead();
 

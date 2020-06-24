@@ -32,9 +32,19 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('newsfeed');
 	});
 
+	Route::get('/{slug}/friends', [
+	  'uses' => 'ProfilesController@friends',
+	  'as'   => 'timeline.friends'
+	]);
+
 	Route::get('/get_auth_user_data', function(){
 		return Auth::user();
 	});
+
+	Route::get('/timeline/{slug}/friendlist', [
+	  'uses' => 'ProfilesController@friendlist',
+	  'as'   => 'timeline.friendlist'
+	]);
 
 	Route::get('/timeline/{slug}', [
 	  'uses' => 'ProfilesController@index',
@@ -72,7 +82,7 @@ Route::group(['middleware' => 'auth'], function(){
 	]);
 
 	Route::get('/requests', [
-		'uses' => 'FriendshipsController@pending_friend_requests',
+		'uses' => 'FriendshipsController@pending_requests',
 		'as'   => 'pending_friend_requests'
 	]);
 
