@@ -38,7 +38,7 @@
                     
                   <like :id="post.id"></like>
 
-                  <comment :auth="auth.avatar" :post="post"></comment>
+                  <newcomment :auth="auth.avatar" :post="post"></newcomment>
 
             </div>
           
@@ -183,11 +183,18 @@
 
 import Like from './Like.vue';
 import Comment from './Comment.vue';
+import Newcomment from './Newcomment.vue';
 import InfiniteLoading from 'vue-infinite-loading';
 
 export default {
 	mounted() {
 		
+  },
+
+  beforeMount() {
+      Vue.filter('postTime', function(value){
+        return moment(value).utc(+6).fromNow();
+      })
   },
 
   props : ['auth'],
@@ -206,7 +213,7 @@ export default {
   }),
 
   components: {
-      Like, Comment, InfiniteLoading,
+      Like, Comment, Newcomment, InfiniteLoading,
   },
 
 	methods: {
@@ -216,10 +223,7 @@ export default {
       axios.get(url2).then(({ data }) => {
 
         data.data.forEach( (post) => {
-            this.$store.commit('add_posts', post)        
-              Vue.filter('postTime', function(value){
-                  return moment(value).utc(+6).fromNow();
-              })
+            this.$store.commit('add_posts', post)
         })
 
         /*this.current_page = data.current_page*/

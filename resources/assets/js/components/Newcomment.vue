@@ -83,7 +83,7 @@ export default {
 					]
 				}
 
-				this.$store.commit('add_comments', {
+				this.$store.commit('add_new_comments', {
 					post_id: this.post.id,
 					comment: this.comments.data
 				});

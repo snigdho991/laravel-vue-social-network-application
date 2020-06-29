@@ -32,18 +32,23 @@ Route::group(['middleware' => 'auth'], function(){
 		return view('newsfeed');
 	});
 
+	Route::get('/get_auth_user_data', function(){
+		return Auth::user();
+	});
+
 	Route::get('/{slug}/friends', [
 	  'uses' => 'ProfilesController@friends',
 	  'as'   => 'timeline.friends'
 	]);
 
-	Route::get('/get_auth_user_data', function(){
-		return Auth::user();
-	});
-
 	Route::get('/timeline/{slug}/friendlist', [
 	  'uses' => 'ProfilesController@friendlist',
 	  'as'   => 'timeline.friendlist'
+	]);
+
+	Route::get('/timeline/{slug}/getimages', [
+	  'uses' => 'ProfilesController@images',
+	  'as'   => 'timeline.images'
 	]);
 
 	Route::get('/timeline/{slug}', [

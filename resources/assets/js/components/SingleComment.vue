@@ -10,9 +10,7 @@
 <script>
 export default {
 	mounted() {
-		/*Vue.filter('replyTime', function(value){
-          	return moment(value).utc(+6).fromNow();
-      	})*/
+		
 	},
 
 	beforeMount() {

@@ -94,6 +94,7 @@ export default {
                     }).show();
 
                     this.$store.commit('add_new_posts', resp.data);
+                    this.$store.commit('add_new_feed_posts', resp.data);
 
                     document.getElementById("noty_audio").play();
                     //this.$store.commit('add_posts', resp.data);
@@ -131,6 +132,7 @@ export default {
                     }).show();
 
                     this.$store.commit('add_new_posts', response.data);
+                    this.$store.commit('add_new_feed_posts', response.data);
 
                     document.getElementById("noty_audio").play();
 

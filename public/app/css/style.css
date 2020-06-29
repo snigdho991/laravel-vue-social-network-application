@@ -1710,7 +1710,7 @@ ul.online-users li span.online-dot{
   background: none;
   width: 1px;
   height: 98%;
-  left: -145px;
+  left: -146px;
   border-left: 2px solid #8dc63f;
   top: 15px;
 }
@@ -1728,7 +1728,7 @@ ul.online-users li span.online-dot{
   height: 20px;
   border-radius: 10px;
   left: -30px;
-  top: 10px;
+  top: 0px;
   border: 2px solid #fff;
 }
 

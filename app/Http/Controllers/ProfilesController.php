@@ -62,6 +62,32 @@ class ProfilesController extends Controller
 
     }
 
+    public function images($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        
+        $images = array();
+        $posts = $user->posts->where('image', !null);
+
+        foreach ($posts->sortByDesc('created_at') as $post) {
+            array_push($images, $post);
+        }
+
+        $page = Paginator::resolveCurrentPage('page') ?: 1;
+        $startIndex = ($page - 1) * 10;
+        $total = count($images);
+        
+        $results = array_slice($images, $startIndex, 10);
+
+        $list =  new LengthAwarePaginator($results, $total, 10, $page, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
+        
+        return $list;
+
+    }
+
     public function basic($slug)
     {
         $user = User::where('slug', $slug)->first();

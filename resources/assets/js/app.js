@@ -26,6 +26,7 @@ var post = Vue.component('post', require('./components/Post.vue'))
 var feed = Vue.component('feed', require('./components/Feed.vue'))
 var init = Vue.component('init', require('./components/Init.vue'))
 var friendlist = Vue.component('friendlist', require('./components/FriendList.vue'))
+var timelinefeed = Vue.component('timelinefeed', require('./components/Timelinefeed.vue'))
 
 
 
@@ -45,6 +46,7 @@ const app = new Vue({
 	    'feed': feed,
 	    'init': init,
 	    'friendlist': friendlist,
+	    'timelinefeed': timelinefeed,
 	    /*'unreadnots': unreadnots,
 	    'limited': limited*/
 	}
