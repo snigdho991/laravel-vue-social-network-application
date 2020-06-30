@@ -36,6 +36,15 @@ class ProfilesController extends Controller
         return view('profiles.friendlist')->with('user', $user)->with('title', $slug)->with('result', $result)->with('friendcount', $find);
     }
 
+    public function images($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+
+        $uploads = $user->posts->where('image', !null);
+
+        return view('profiles.images')->with('user', $user)->with('title', $slug)->with('result', $uploads);
+    }
+
     public function friendlist($slug)
     {
     	$user = User::where('slug', $slug)->first();
@@ -62,7 +71,7 @@ class ProfilesController extends Controller
 
     }
 
-    public function images($slug)
+    public function getimages($slug)
     {
         $user = User::where('slug', $slug)->first();
         
@@ -74,17 +83,27 @@ class ProfilesController extends Controller
         }
 
         $page = Paginator::resolveCurrentPage('page') ?: 1;
-        $startIndex = ($page - 1) * 10;
+        $startIndex = ($page - 1) * 3;
         $total = count($images);
         
-        $results = array_slice($images, $startIndex, 10);
+        $results = array_slice($images, $startIndex, 3);
 
-        $list =  new LengthAwarePaginator($results, $total, 10, $page, [
+        $list =  new LengthAwarePaginator($results, $total, 3, $page, [
             'path' => Paginator::resolveCurrentPath(),
             'pageName' => 'page',
         ]);
         
         return $list;
+
+    }
+
+    public function getSingleImage($slug, $id)
+    {
+        $user = User::where('slug', $slug)->first();
+        
+        $post = $user->posts->where('id', $id)->first();
+        
+        return $post;
 
     }
 

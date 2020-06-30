@@ -1,7 +1,10 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import VModal from 'vue-js-modal'
 
 Vue.use(Vuex)
+
+Vue.use(VModal)
 
 
 export const store = new Vuex.Store({

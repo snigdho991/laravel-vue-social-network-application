@@ -36,9 +36,14 @@ Route::group(['middleware' => 'auth'], function(){
 		return Auth::user();
 	});
 
-	Route::get('/{slug}/friends', [
+	Route::get('/timeline/{slug}/friends', [
 	  'uses' => 'ProfilesController@friends',
 	  'as'   => 'timeline.friends'
+	]);
+
+	Route::get('/timeline/{slug}/images', [
+	  'uses' => 'ProfilesController@images',
+	  'as'   => 'timeline.images'
 	]);
 
 	Route::get('/timeline/{slug}/friendlist', [
@@ -47,8 +52,13 @@ Route::group(['middleware' => 'auth'], function(){
 	]);
 
 	Route::get('/timeline/{slug}/getimages', [
-	  'uses' => 'ProfilesController@images',
-	  'as'   => 'timeline.images'
+	  'uses' => 'ProfilesController@getimages',
+	  'as'   => 'timeline.getimages'
+	]);
+
+	Route::get('/timeline/{slug}/singleimage/{id}', [
+	  'uses' => 'ProfilesController@getSingleImage',
+	  'as'   => 'timeline.singleimage'
 	]);
 
 	Route::get('/timeline/{slug}', [
