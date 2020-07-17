@@ -65,8 +65,8 @@
                   </li>          
               </span>
               
-                    <li class="text-center" style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px;"><a href="/notifications" style="color: #27aae1;">
-                See all notifications</a></li>
+                <li class="text-center" style="padding: 15px 0px; border-top: 1px solid rgba(255,255,255, 0.1); border-bottom: 0px;"><a href="/notifications" style="color: #27aae1;">See all notifications</a>
+                </li>
           </ul>
       </li>
 
@@ -108,8 +108,7 @@
                               this.$store.commit('add_nots', notification);
 
                               document.getElementById("noty_audio").play();
-                              //$('#noty_audio').play();
-                              //document.getElementById("noty_audio").muted = false;
+                              
                               let newUnreadNotifications = {data: { name: notification.name, message: notification.message } };
                               this.unreadNots.push(newUnreadNotifications);
 
@@ -118,7 +117,10 @@
                                   //this.unreadReqs.$set(newUnreadRequests);
                                   this.unreadReqs.push(newUnreadRequests);
                                   this.unreadFri.push(newUnreadRequests);
-                              }
+                                }
+
+                              //$('#noty_audio').play();
+                              //document.getElementById("noty_audio").muted = false;
                     })
                   },
 

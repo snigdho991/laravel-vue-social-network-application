@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 	
-<!-- Mirrored from mythemestore.com/friend-finder/newsfeed.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 May 2020 13:09:41 GMT -->
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,6 +24,7 @@
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" href="{{ asset('app/images/fav.png') }}"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css" />
+    
     </head>
   
   <body>
@@ -229,46 +229,10 @@
         }(jQuery);
     </script>
 
-    <script type="text/javascript">
-      function attachSticky() {
-          // Sticky Chat Block
-          $('#chat-block').stick_in_parent({
-              parent: '#page-contents',
-              offset().top: 70
-          });
-
-          // Sticky Right Sidebar
-          $('#sticky-sidebar').stick_in_parent({
-              parent: '#page-contents',
-              offset().top: 70
-          });
-
-      }
-
-      // Disable Sticky Feature in Mobile
-      $(window).on("resize", function() {
-
-          if ($.isFunction($.fn.stick_in_parent)) {
-              // Check if Screen wWdth is Less Than or Equal to 992px, Disable Sticky Feature
-              if ($(this).width() <= 992) {
-                  $('#chat-block').trigger('sticky_kit:detach');
-                  $('#sticky-sidebar').trigger('sticky_kit:detach');
-
-                  return;
-              } else {
-
-                  // Enabling Sticky Feature for Width Greater than 992px
-                  attachSticky();
-              }
-
-              // Firing Sticky Recalculate on Screen Resize
-              return function(e) {
-                  return $(document.body).trigger("sticky_kit:recalc");
-              };
-          }
-      });
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+
+    @yield('scripts')
+
   </body>
 
 <!-- Mirrored from mythemestore.com/friend-finder/newsfeed.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 May 2020 13:11:43 GMT -->

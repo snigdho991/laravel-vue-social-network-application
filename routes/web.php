@@ -16,7 +16,6 @@ Route::get('/', [
   'as'   => 'login'
 ]);
 
-
 Auth::routes();
 
 Route::get('/join', [
@@ -35,6 +34,31 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/get_auth_user_data', function(){
 		return Auth::user();
 	});
+
+	Route::get('/authfriends', [
+		'uses' => 'ChatController@getUsers',
+	  	'as'   => 'chat.getconversationdetails'
+	]);
+
+	Route::get('/messages', [
+		'uses' => 'ChatController@chatfriends',
+	  	'as'   => 'chat.friends'
+	]);
+
+	Route::get('/conversation/{id}', [
+		'uses' => 'ChatController@getConversationFor',
+	  	'as'   => 'chat.getconversation'
+	]);
+
+	Route::post('/conversation/send', [
+		'uses' => 'ChatController@sendMessage',
+	  	'as'   => 'chat.sendmessage'
+	]);
+
+	Route::get('/timeline/{slug}/about', [
+	  'uses' => 'ProfilesController@about',
+	  'as'   => 'timeline.about'
+	]);
 
 	Route::get('/timeline/{slug}/friends', [
 	  'uses' => 'ProfilesController@friends',

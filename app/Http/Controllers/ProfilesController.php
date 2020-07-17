@@ -18,10 +18,17 @@ class ProfilesController extends Controller
     	return view('profiles.timeline')->with('user', $user)->with('title', $slug);
     }
 
+    public function about($slug)
+    {
+        $user = User::where('slug', $slug)->first();
+        return view('profiles.about')->with('user', $user)->with('title', $slug);
+    }
+
     public function friends($slug)
     {
         $user = User::where('slug', $slug)->first();
 
+        //mutual friends
         $muarr = array();
         $find = $user->friends();
 

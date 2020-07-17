@@ -264,11 +264,11 @@ export default {
 
 <style type="text/css">
   .line {
-    background: none;
-    height: 1px;
-    border-top: 1px dashed #e6e6e6;
-    margin-bottom: 13px;
-    width: 595px;
-    margin-left: -85px;
+      background: none;
+      height: 1px;
+      border-top: 1px dashed #e6e6e6;
+      margin-bottom: 13px;
+      width: 595px;
+      margin-left: -85px;
   }
 </style>

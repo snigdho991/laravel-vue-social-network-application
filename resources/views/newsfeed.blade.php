@@ -14,13 +14,21 @@
             <!-- Post Create Box
             ================================================= -->
             <post :user="{{ Auth::user() }}"></post>
+            <!-- Post Create Box End-->
             
+            <!-- Notification Tone -->
             <audio id="noty_audio">
                 <source src="{{ asset('audio/notify.mp3') }}">
-                <source src="{{ asset('audio/notify.oog') }}">
+                <source src="{{ asset('audio/notify.ogg') }}">
                 <source src="{{ asset('audio/notify.wav') }}">
             </audio>
-            <!-- Post Create Box End-->
+
+            <!-- Message Tone -->
+            <audio id="message_audio">
+                <source src="{{ asset('message/message_tone.mp3') }}">
+                <source src="{{ asset('message/message_tone.ogg') }}">
+                <source src="{{ asset('message/message_tone.wav') }}">
+            </audio>
             
             <feed :auth="{{ Auth::user() }}"></feed>
             

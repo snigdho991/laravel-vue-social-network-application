@@ -28,7 +28,7 @@ var init = Vue.component('init', require('./components/Init.vue'))
 var friendlist = Vue.component('friendlist', require('./components/FriendList.vue'))
 var timelinefeed = Vue.component('timelinefeed', require('./components/Timelinefeed.vue'))
 var images = Vue.component('images', require('./components/Images.vue'))
-
+var chat = Vue.component('chat', require('./components/Chat.vue'))
 
 
 /*var unreadnots = Vue.component('unreadnots', require('./components/Unreadnotification.vue'))
@@ -49,6 +49,7 @@ const app = new Vue({
 	    'friendlist': friendlist,
 	    'timelinefeed': timelinefeed,
 	    'images': images,
+	    'chat': chat,
 	}
 
 });

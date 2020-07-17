@@ -1349,12 +1349,12 @@ ul.online-users li span.online-dot{
 .chat-room ul.contact-list li a{
   border: none;
   padding: 10px 0;
-  border-bottom: 1px solid #f1f2f2 !important;
+  border-bottom: 1px solid rgba(39,164,231, .1) !important;
 }
 
 .chat-room ul.contact-list li a:hover, .chat-room ul.contact-list li a:active, .chat-room ul.contact-list li a:focus{
   border: none;
-  border-bottom: 1px solid #8dc63f !important;
+  border-bottom: 1px solid rgba(39,164,231, .115) !important;
   border-radius: 0;
   cursor: pointer;
   background: none;
@@ -1376,7 +1376,7 @@ ul.online-users li span.online-dot{
 }
 
 .chat-room ul.contact-list li a .contact .msg-preview .chat-alert{
-  background: red;
+  background: #0275d8;
   text-align: center;
   border-radius: 4px;
   padding: 1px 6px;
@@ -1467,7 +1467,7 @@ ul.online-users li span.online-dot{
 }
 
 .chat-room .send-message{
-  background: #f8f8f8;
+  background: #fff!important;
   padding: 20px;
   border-radius: 4px;
 }
@@ -1495,7 +1495,7 @@ ul.online-users li span.online-dot{
 }
 
 .scrollbar-wrapper {
-    height: 100%;
+    height: 0%;
     overflow: auto;
     width: 100%;
 }
@@ -1712,7 +1712,7 @@ ul.online-users li span.online-dot{
   height: 98%;
   left: -146px;
   border-left: 2px solid #8dc63f;
-  top: 15px;
+  top: 9px;
 }
 
 .timeline .post-content .post-date{

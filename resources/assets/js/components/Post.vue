@@ -6,10 +6,10 @@
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
 					
-			      <div class="form-group">
-			        <img :src="user.avatar" alt="" class="profile-photo-md" />
-			        <textarea v-model.trim="content" id="exampleTextarea" cols="60" rows="4" class="form-control" placeholder="Write what you wish"></textarea>
-			      </div>
+					<div class="form-group">
+						<img :src="user.avatar" alt="" class="profile-photo-md" />
+						<textarea v-model.trim="content" id="exampleTextarea" cols="60" rows="4" class="form-control" placeholder="Write what you wish"></textarea>
+					</div>
 
 			    </div>
 

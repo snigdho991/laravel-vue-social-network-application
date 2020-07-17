@@ -22,10 +22,10 @@
               </div>
               <div class="col-md-9">
                 <ul class="list-inline profile-menu">
-                  <li><a href="timeline.html" class="active">Timeline</a></li>
-                  <li><a href="timeline-about.html">About</a></li>
-                  <li><a href="timeline-album.html">Album</a></li>
-                  <li><a href="timeline-friends.html">Friends</a></li>
+                  <li><a href="{{ route('timeline', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline', ['slug' => $user->slug ])) active @endif">Timeline</a></li>
+                  <li><a href="{{ route('timeline.about', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.about', ['slug' => $user->slug ])) active @endif">About</a></li>
+                  <li><a href="{{ route('timeline.images', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.images', ['slug' => $user->slug ])) active @endif">Album</a></li>
+                  <li><a href="{{ route('timeline.friends', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.friends', ['slug' => $user->slug ])) active @endif">Friends</a></li>
                 </ul>
                 <ul class="follow-me list-inline">
                   <!-- <li>1,299 people following her</li> -->
@@ -49,10 +49,10 @@
 
             <div class="mobile-menu">
               <ul class="list-inline">
-                <li><a href="timline.html" class="active">Timeline</a></li>
-                <li><a href="timeline-about.html">About</a></li>
-                <li><a href="timeline-album.html">Album</a></li>
-                <li><a href="timeline-friends.html">Friends</a></li>
+                <li><a href="timline.html{{ route('timeline', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline', ['slug' => $user->slug ])) active @endif">Timeline</a></li>
+                <li><a href="{{ route('timeline.about', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.about', ['slug' => $user->slug ])) active @endif">About</a></li>
+                <li><a href="{{ route('timeline.images', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.images', ['slug' => $user->slug ])) active @endif">Album</a></li>
+                <li><a href="{{ route('timeline.friends', ['slug' => $user->slug ]) }}" class="@if (url()->current() == route('timeline.images', ['slug' => $user->slug ])) active @endif">Friends</a></li>
               </ul>
 
               @if(Auth::check())
